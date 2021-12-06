@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nelioalves.workshopmongo.domain.User;
@@ -38,5 +40,13 @@ public class UserResource {
 		//.ok é o que vai instanciar o ResponseEntity já com o campo de resposta http, que a resposta ocorreu com sucesso.
 		//.body é para definir qual vai ser o corpo da resposta, que no caso vai ser a lista/listDto.
 		return ResponseEntity.ok().body(listDto);	
-		}
+	}
+	
+	//Essa anotação está dizendo que meu método vai ter o caminho /users e o valor de um id.
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(new UserDTO(obj));	
+	}
+	
 }
