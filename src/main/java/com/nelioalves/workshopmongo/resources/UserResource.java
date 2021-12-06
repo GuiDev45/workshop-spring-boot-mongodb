@@ -65,4 +65,12 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	//Anotação para dizer que esse método vai ser o endpoint REST para deletar um usuário.
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String id) {
+		service.delete(id);
+		//Essa reposta não precisa retornar nada, então a resposta é o código 204 e esse código no ResponseEntity é o .noContent()
+		return ResponseEntity.noContent().build();
+	}
+	
 }
