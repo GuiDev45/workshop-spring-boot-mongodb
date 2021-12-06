@@ -1,6 +1,7 @@
 package com.nelioalves.workshopmongo.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nelioalves.workshopmongo.domain.User;
+import com.nelioalves.workshopmongo.dto.UserDTO;
 import com.nelioalves.workshopmongo.services.UserService;
 
 //Lembrando que os resources são os controladores/recursos REST.
@@ -28,10 +30,13 @@ public class UserResource {
 	@GetMapping
 	//Método que retorna um objeto sofisticado ResponseEntity, esse objeto consegue encapsular toda uma estrutura necessária, 
 	//para retornar respostas http já com possíveis cabeçalhos e possíveis erros, etc.
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<List<UserDTO>> findAll() {
 		//Dessa forma busca os usuários no banco de dados MongoDB e guardar na lista/list.
 		List<User> list = service.findAll();
+		//Convertendo uma lista de User para uma lista de UserDTO.
+		List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 		//.ok é o que vai instanciar o ResponseEntity já com o campo de resposta http, que a resposta ocorreu com sucesso.
-		//.body é para definir qual vai ser o corpo da resposta, que no caso vai ser a lista/list.
-		return ResponseEntity.ok().body(list);	}
+		//.body é para definir qual vai ser o corpo da resposta, que no caso vai ser a lista/listDto.
+		return ResponseEntity.ok().body(listDto);	
+		}
 }
