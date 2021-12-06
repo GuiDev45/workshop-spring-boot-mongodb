@@ -45,6 +45,20 @@ public class UserService {
 		repo.deleteById(id);
 	}
 	
+	//Método para atualizar o usuário/PUT
+	public User update(User obj) {
+		User newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	//Esse método é responsavel por copiar os dados que estão em obj, para o newObj,
+	//Não tem o atributo id, o id não vai mudar.
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
+
 	//Método que pega um DTO e instância um usuário.
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
