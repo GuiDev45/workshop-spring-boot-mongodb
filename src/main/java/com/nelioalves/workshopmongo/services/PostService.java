@@ -1,5 +1,6 @@
 package com.nelioalves.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,12 @@ public class PostService {
 	//Esse é o método de busca de um post usando uma String.
 	public List<Post> findByTitle(String text) {
 		return repo.searchTitle(text);
+	}
+	
+	//Método de consulta de data min e data max.
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+		return repo.fullSearch(text, minDate, maxDate);
 	}
 	
 }
