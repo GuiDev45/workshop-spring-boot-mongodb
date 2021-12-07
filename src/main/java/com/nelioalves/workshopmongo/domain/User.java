@@ -1,8 +1,11 @@
 package com.nelioalves.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 //Serializable - é para converter os objetos em bytes para ser trafegado em rede ou ser gravado em arquivo.
@@ -17,6 +20,11 @@ public class User implements Serializable {
 	private String id;
 	private String name;
 	private String email;
+	
+	//Essa anotação vai garantir que os posts só vão ser carregados se for acessado explicitamente,
+	//Se um post não for acessador, ao carregar um usuário vai vir só os dados básicos, que são os atributos id, name e email.
+	@DBRef(lazy = true)
+	private List<Post> posts = new ArrayList<>();
 	
 	//Construtor padrão.
 	public User() {
@@ -52,6 +60,14 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	//hashCode para que os objetos possam ter comparação, apenas para o atributo id.

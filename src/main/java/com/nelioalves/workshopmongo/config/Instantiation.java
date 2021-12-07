@@ -58,6 +58,10 @@ public class Instantiation implements CommandLineRunner {
 		//.saveAll os objetos instanciados vão ser salvos lá na coleção de user do MongoDB.
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
+		//Adicionando posts para o usuário, lá no MongoDB, vai estar encadeada essa lista de posts.
+		maria.getPosts().addAll(Arrays.asList(post1, post2));
+		userRepository.save(maria);
+		
 	}
 
 }

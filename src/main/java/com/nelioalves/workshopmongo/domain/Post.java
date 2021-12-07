@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.nelioalves.workshopmongo.dto.AuthorDTO;
 
+//Aplicado no nível da classe para indicar que essa classe é uma candidata a ser mapeada por um banco de dados.
 @Document
 //Serializable - é para converter os objetos em bytes para ser trafegado em rede ou ser gravado em arquivo.
 public class Post implements Serializable {
