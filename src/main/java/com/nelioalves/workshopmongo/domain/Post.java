@@ -1,12 +1,15 @@
 package com.nelioalves.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.nelioalves.workshopmongo.dto.AuthorDTO;
+import com.nelioalves.workshopmongo.dto.CommentDTO;
 
 //Aplicado no nível da classe para indicar que essa classe é uma candidata a ser mapeada por um banco de dados.
 @Document
@@ -22,6 +25,8 @@ public class Post implements Serializable {
 	private String title;
 	private String body;
 	private AuthorDTO author;
+	
+	private List<CommentDTO> comments = new ArrayList<>();	
 	
 	//Construtor padrão.
 	public Post() {
@@ -75,6 +80,14 @@ public class Post implements Serializable {
 
 	public void setAuthor(AuthorDTO author) {
 		this.author = author;
+	}
+	
+	public List<CommentDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentDTO> comments) {
+		this.comments = comments;
 	}
 	
 	//hashCode para que os objetos possam ter comparação, apenas para o atributo id.
