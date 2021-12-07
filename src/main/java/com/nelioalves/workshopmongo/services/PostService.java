@@ -29,7 +29,7 @@ public class PostService {
 	
 	//Esse é o método de busca de um post usando uma String.
 	public List<Post> findByTitle(String text) {
-		return repo.findByTitleContainingIgnoreCase(text);
+		return repo.searchTitle(text);
 	}
 	
 }
